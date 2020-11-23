@@ -1,0 +1,48 @@
+.body {
+    display: flex;
+    flex-wrap: wrap;
+    width: 520px;
+    border: 5px solid black;
+
+}
+
+/* .ligne {
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    border: 1px solid black;
+  
+} */
+.wall {
+    background-color: brown;
+    width: 40px;
+    height: 40px;
+
+
+}
+
+.paths {
+    background-color: yellow;
+    width: 40px;
+    height: 40px;
+}
+
+.Start {
+    width: 40px;
+    height: 40px;
+}
+
+.Tresor {
+    width: 40px;
+    height: 40px;
+    background-color: red;
+}
+.player {
+    width: 30px;
+    height: 30px;
+    background-color: green;
+    border-radius: 100%;
+    margin-top: 5px;
+    margin-left: 5px;
+    
+}
