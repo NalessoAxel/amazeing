@@ -34,6 +34,6 @@ No
 - add more lvl
 
 ## Preview
-![Preview](./img)
+![Preview](./img/preview.png)
 
-[Pages](https://nalessoaxel.github.io/leaving_the_field/)
+[Pages](https://nalessoaxel.github.io/amazeing/)
