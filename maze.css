@@ -1,24 +1,33 @@
-.body {
+.body{
     display: flex;
-    flex-wrap: wrap;
-    width: 520px;
-    border: 5px solid black;
-
+    justify-content: center;
 }
 
-/* .ligne {
+
+.main {
+    display: flex;
+    flex-direction: column;
+    
+    width: 462px;
+    border: 5px solid black;
+}
+.lineDiv {
+    display: flex;
+    flex-direction: row;
+}
+.tile {
     width: 40px;
     height: 40px;
-    text-align: center;
     border: 1px solid black;
-  
-} */
+    display: flex;
+    align-items: center;
+}
+
 .wall {
-    background-color: brown;
+    background-image: url(./img/maze-wall.png);
+    background-size: cover;
     width: 40px;
     height: 40px;
-
-
 }
 
 .paths {
@@ -27,22 +36,29 @@
     height: 40px;
 }
 
-.Start {
+.start {
     width: 40px;
     height: 40px;
 }
 
-.Tresor {
+.tresor {
     width: 40px;
     height: 40px;
-    background-color: red;
+    background-image: url(./img/tresor.png);
+    background-size: contain;
 }
+
 .player {
     width: 30px;
     height: 30px;
-    background-color: green;
-    border-radius: 100%;
-    margin-top: 5px;
-    margin-left: 5px;
+    background-image: url(./img/indianaplayer.png);
+    background-size: contain;
+   
     
+
+}
+p.timer {
+    
+    display: flex;
+    justify-content: center;
 }
