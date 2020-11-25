@@ -1,6 +1,7 @@
 let level = 0
 
-const level1 =`***********.*
+const level1 =
+    `***********.*
 *S.....**.*.T
 *****.....*.* 
 *****.***.*.* 
@@ -32,7 +33,6 @@ const level3 = `********
 **.*****
 *T.*****
 ********`
-
 const multiline = [level1, level2, level3]
 
 const body = document.querySelector('body')
@@ -118,7 +118,8 @@ function leveling() {
 }
 
 
-
+main.appendChild(time)
+time.appendChild(p)
 
 
 
@@ -134,7 +135,7 @@ document.body.addEventListener('keydown', function (e) {
             alert('Hit a wall bolosse')
             posX--
             destination = emptyArr[y][x]
-        }
+          }
 
     }
 
@@ -146,7 +147,7 @@ document.body.addEventListener('keydown', function (e) {
             alert('Hit a wall bolosse')
             posX++
             destination = emptyArr[y][x]
-        }
+          }
     }
     if (e.code === 'ArrowUp') {
         posY--
@@ -156,7 +157,7 @@ document.body.addEventListener('keydown', function (e) {
             alert('Hit a wall bolosse')
             posY--
             destination = emptyArr[y][x]
-        }
+          }
     }
     if (e.code === 'ArrowDown') {
         posY++
@@ -166,20 +167,19 @@ document.body.addEventListener('keydown', function (e) {
             alert('Hit a wall bolosse')
             posY++
             destination = emptyArr[y][x]
+          }
         }
+  
+    if (destination.classList.contains('tresor')) {
+        alert('you won badass next level up')
+        posX = 0
+        posY = 0
+        destination = emptyArr[posY][posX]
+        main.innerHTML = ''
+        level++
+        leveling()
 
-        if (destination.classList.contains('tresor')) {
-            alert('you won badass next level up')
-            posX = 0
-            posY = 0
-            destination = emptyArr[posY][posX]
-            main.innerHTML = ''
-            level++
-            leveling()
-
-        }
     }
+    
 })
 leveling()
-main.appendChild(time)
-time.appendChild(p)
