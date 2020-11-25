@@ -33,33 +33,69 @@ const level3 = `********
 **.*****
 *T.*****
 ********`
-const multiline = [level1, level2, level3]
+
+const level4 = 
+`**********.******
+**S..*****.******
+****.*****.******
+...........******
+*****.***********
+*****.......*****
+***********.*****
+****........*****
+.....*****.******
+**********.******
+*T...............`
+
+const level5 = 
+`.*...........*.....
+.*.*******.***.***.
+.*...*...*.....*...
+.***.*.*.*******.**
+.....*S*.*.....*...
+.*******.*.***.*.*.
+.*.......*.*...*.*.
+.***.*****.*.*****.
+.....*...*.*.*...*.
+****.*.*.*.*.*.*.*.
+.*...*.*...*...*...
+.*.***.*****.******
+.....*...*...*.....
+.*******.*****.***.
+...*...*.......*...
+****.*.***.*****.*.
+.....*...*...*...*.
+.*******.*****.***.
+T*.............*...
+`
+
+const multiline = [level1, level2, level3, level4, level5]
 
 const body = document.querySelector('body')
 body.classList.add('body')
 const main = document.createElement('main')
-const time = document.createElement('div')
+/* const time = document.createElement('div')
 time.classList.add('time')
 const p = document.createElement('p');
 const button = document.createElement('input')
-//button.classList.add('button')
-//button.type = 'button'
-//button.value = 'start'
-p.classList.add('timer')
+button.classList.add('button')
+button.type = 'button'
+button.value = 'start'
+p.classList.add('timer') */
 body.appendChild(main)
-
+/* main.appendChild(time)
+time.appendChild(p) */
 let posX
 let posY
-
-let seconds = 0;
+/* let seconds = 0;
 let minutes = 0;
 
 function timer() {
     const para = document.querySelector('p')
     if (seconds >= 0) {
-        para.textContent = 'time ' + seconds + ' s'
+        para.textContent = 'Time: ' + seconds + ' s'
         if (seconds > 60) {
-            para.textContent = 'time ' + minutes + ' mn ' + (seconds - (minutes * 60)) + ' s'
+            para.textContent = 'Time: ' + minutes + ' mn ' + (seconds - (minutes * 60)) + ' s'
         }
     }
     if (seconds % 60 === 0 && seconds !== 0) {
@@ -68,7 +104,7 @@ function timer() {
     }
     seconds++
 }
-const interval = setInterval(timer, 1000)
+const interval = setInterval(timer, 1000)*/
 
 let emptyArr = []
 
@@ -78,7 +114,7 @@ function leveling() {
     for (let i = 0; i < lineArr.length; i++) {
         emptyArr[i] = []
         const lineDiv = document.createElement('div')
-        /* lineArr[i] == '*' */
+
         lineDiv.classList.add('lineDiv')
         const line = lineArr[i]
         for (let j = 0; j <= line.length - 1; j++) {
@@ -117,59 +153,47 @@ function leveling() {
     console.log(emptyArr)
 }
 
-
-main.appendChild(time)
-time.appendChild(p)
-
-
-
-
 document.body.addEventListener('keydown', function (e) {
     const user = document.querySelector('.player')
     let destination
     if (e.code === 'ArrowLeft') {
         posX--
         destination = emptyArr[posY][posX]
-        destination.appendChild(user)
-        if (destination.classList.contains('wall')) {
-            alert('Hit a wall bolosse')
-            posX--
-            destination = emptyArr[y][x]
-          }
-
-    }
-
-    if (e.code === 'ArrowRight') {
-        posX++
-        destination = emptyArr[posY][posX]
-        destination.appendChild(user)
         if (destination.classList.contains('wall')) {
             alert('Hit a wall bolosse')
             posX++
             destination = emptyArr[y][x]
           }
     }
+    if (e.code === 'ArrowRight') {
+        posX++
+        destination = emptyArr[posY][posX]
+        if (destination.classList.contains('wall')) {
+            alert('Hit a wall bolosse')
+            posX--
+            destination = emptyArr[y][x]
+          }
+    }
     if (e.code === 'ArrowUp') {
         posY--
         destination = emptyArr[posY][posX]
-        destination.appendChild(user)
         if (destination.classList.contains('wall')) {
             alert('Hit a wall bolosse')
-            posY--
+            posY++
             destination = emptyArr[y][x]
           }
     }
     if (e.code === 'ArrowDown') {
         posY++
         destination = emptyArr[posY][posX]
-        destination.appendChild(user)
         if (destination.classList.contains('wall')) {
             alert('Hit a wall bolosse')
-            posY++
+            posY--
             destination = emptyArr[y][x]
-          }
+          } 
         }
-  
+        destination.appendChild(user)
+
     if (destination.classList.contains('tresor')) {
         alert('you won badass next level up')
         posX = 0
@@ -177,9 +201,12 @@ document.body.addEventListener('keydown', function (e) {
         destination = emptyArr[posY][posX]
         main.innerHTML = ''
         level++
+        seconds = 0
+        minutes = 0
         leveling()
+        clearInterval(interval)
 
-    }
-    
+    }    
 })
+
 leveling()
