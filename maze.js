@@ -1,15 +1,39 @@
-const level1 = `***********.*
+let level = 0
+
+const level1 =`***********.*
 *S.....**.*.T
 *****.....*.* 
 *****.***.*.* 
 *****.*****.* 
-*****.*****.* 
+*.....*****.* 
 *****.......* 
 *****.******* 
 *.........*** 
 *.******...** 
 *....********`
 
+const level2 = `**********************
+*..S.................*
+********************.*
+*....................*
+*.********************
+*...................T*`
+
+
+const level3 = `********
+****S***
+****.***
+****.***
+****.***
+*......*
+*.****.*
+*..***.*
+*..***.*
+**.*****
+*T.*****
+********`
+
+const multiline = [level1, level2, level3]
 
 const body = document.querySelector('body')
 body.classList.add('body')
@@ -17,8 +41,15 @@ const main = document.createElement('main')
 const time = document.createElement('div')
 time.classList.add('time')
 const p = document.createElement('p');
+const button = document.createElement('input')
+//button.classList.add('button')
+//button.type = 'button'
+//button.value = 'start'
 p.classList.add('timer')
 body.appendChild(main)
+
+let posX
+let posY
 
 let seconds = 0;
 let minutes = 0;
@@ -39,107 +70,116 @@ function timer() {
 }
 const interval = setInterval(timer, 1000)
 
+let emptyArr = []
 
+function leveling() {
+    const lineArr = multiline[level].split('\n')
 
-const lineArr = level1.split('\n')
-
-for (let i = 0; i <= lineArr.length - 1; i++) {
-    const lineDiv = document.createElement('div')
-    lineArr[i] == '*'
-    lineDiv.classList.add('lineDiv')
-    const line = lineArr[i]
-    for (let j = 0; j <= line.length - 1; j++) {
-        const characterDiv = document.createElement('div');
-        const character = line.split('');
-        characterDiv.innerHTML = character[j];
-        lineDiv.appendChild(characterDiv)
-        if (characterDiv.innerHTML == "*") {
-            characterDiv.classList.add('wall')
-            characterDiv.classList.add('tile')
-            characterDiv.innerHTML = ''
-        } else if (characterDiv.innerHTML == '.') {
-            characterDiv.classList.add('paths')
-            characterDiv.classList.add('tile')
-            characterDiv.innerHTML = ''
-        } else if (characterDiv.innerHTML == "S") {
-            characterDiv.classList.add("start")
-            characterDiv.classList.add('tile')
-            characterDiv.innerHTML = ''
-        } else if (characterDiv.innerHTML == "T") {
-            characterDiv.classList.add("tresor")
-            characterDiv.classList.add('tile')
-            characterDiv.innerHTML = ''
-            //tresorPosX = character.indexOf('T')
-            //tresorPosY = i
+    for (let i = 0; i < lineArr.length; i++) {
+        emptyArr[i] = []
+        const lineDiv = document.createElement('div')
+        /* lineArr[i] == '*' */
+        lineDiv.classList.add('lineDiv')
+        const line = lineArr[i]
+        for (let j = 0; j <= line.length - 1; j++) {
+            const characterDiv = document.createElement('div')
+            emptyArr[i][j] = characterDiv
+            const character = line.split('');
+            characterDiv.innerHTML = character[j];
+            lineDiv.appendChild(characterDiv)
+            if (characterDiv.innerHTML == "*") {
+                characterDiv.classList.add('wall')
+                characterDiv.classList.add('tile')
+                characterDiv.innerHTML = ''
+            } else if (characterDiv.innerHTML == '.') {
+                characterDiv.classList.add('paths')
+                characterDiv.classList.add('tile')
+                characterDiv.innerHTML = ''
+            } else if (characterDiv.innerHTML == "S") {
+                characterDiv.classList.add("start")
+                characterDiv.classList.add('tile')
+                characterDiv.innerHTML = ''
+                const player = document.createElement('div')
+                player.classList.add('player')
+                characterDiv.appendChild(player)
+                posX = j
+                posY = i
+            } else if (characterDiv.innerHTML == "T") {
+                characterDiv.classList.add("tresor")
+                characterDiv.classList.add('tile')
+                characterDiv.innerHTML = ''
+                tresorPosX = character.indexOf('T')
+                tresorPosY = i
+            }
         }
+        main.appendChild(lineDiv)
     }
-    main.appendChild(lineDiv)
+    console.log(emptyArr)
 }
 
 
 
-main.appendChild(time)
-time.appendChild(p)
-const player = document.createElement('div')
-player.classList.add('player')
-document.querySelector("body > main > div:nth-child(2) > div.start.tile").appendChild(player)
 
-let posX = 2
-//posX += tresorPosX +1
-let posY = 2
-//posY += tresorPosY +1
+
 
 
 document.body.addEventListener('keydown', function (e) {
+    const user = document.querySelector('.player')
+    let destination
     if (e.code === 'ArrowLeft') {
-        console.log(e)
-
-        if (document.querySelector('body > main > div:nth-child(' + posY + ')> div:nth-child(' + (posX - 1) + ')').classList.contains('wall')) {
-            console.log('Hit a wall bolosse!')
-
-
-        } else {
+        posX--
+        destination = emptyArr[posY][posX]
+        destination.appendChild(user)
+        if (destination.classList.contains('wall')) {
+            alert('Hit a wall bolosse')
             posX--
-            document.querySelector('body > main > div:nth-child(' + posY + ')> div:nth-child(' + posX + ')').appendChild(player)
+            destination = emptyArr[y][x]
         }
+
     }
 
     if (e.code === 'ArrowRight') {
-        if (document.querySelector('body > main > div:nth-child(' + posY + ')> div:nth-child(' + (posX + 1) + ')').classList.contains('wall')) {
-            console.log('Hit a wall bolosse!')
-
-        } else {
+        posX++
+        destination = emptyArr[posY][posX]
+        destination.appendChild(user)
+        if (destination.classList.contains('wall')) {
+            alert('Hit a wall bolosse')
             posX++
-            document.querySelector('body > main > div:nth-child(' + posY + ')> div:nth-child(' + posX + ')').appendChild(player)
+            destination = emptyArr[y][x]
         }
     }
     if (e.code === 'ArrowUp') {
-       /*  if (posY >= lineArr.length) {
-            posY-- */
-            if (document.querySelector('body > main > div:nth-child(' + (posY - 1) + ')> div:nth-child(' + (posX) + ')').classList.contains('wall')) {
-                console.log('Hit a wall bolosse!')
-
-            } else {
-                posY--
-                document.querySelector('body > main > div:nth-child(' + posY + ')> div:nth-child(' + posX + ')').appendChild(player)
-            }
-        
+        posY--
+        destination = emptyArr[posY][posX]
+        destination.appendChild(user)
+        if (destination.classList.contains('wall')) {
+            alert('Hit a wall bolosse')
+            posY--
+            destination = emptyArr[y][x]
+        }
     }
     if (e.code === 'ArrowDown') {
-        /* if (posY <= lineArr.length) {
-            posY++ */
-            if (document.querySelector('body > main > div:nth-child(' + (posY + 1) + ')> div:nth-child(' + posX + ')').classList.contains('wall')) {
-                console.log('Hit a wall bolosse!')
+        posY++
+        destination = emptyArr[posY][posX]
+        destination.appendChild(user)
+        if (destination.classList.contains('wall')) {
+            alert('Hit a wall bolosse')
+            posY++
+            destination = emptyArr[y][x]
+        }
 
-            } else {
-                posY++
-                document.querySelector('body > main > div:nth-child(' + posY + ')> div:nth-child(' + posX + ')').appendChild(player)
-            }
-        
+        if (destination.classList.contains('tresor')) {
+            alert('you won badass next level up')
+            posX = 0
+            posY = 0
+            destination = emptyArr[posY][posX]
+            main.innerHTML = ''
+            level++
+            leveling()
+
+        }
     }
-    /* if (document.querySelector("body > main > div:nth-child(" + posY + ") > div.tresor > div")){
-        alert ('You Won Little Lucky Guy ! ')
-        }  */
-    
-
 })
+leveling()
+main.appendChild(time)
+time.appendChild(p)
